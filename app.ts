@@ -13,7 +13,7 @@ let port = 8000;
 let app = express();
 app.use(express.json());
 
-app.get('/party', (request, response, next) => {
+app.get('/party', function (request, response, next) {
     response.send({
         title: titleP,
         location: locationP,
@@ -21,39 +21,39 @@ app.get('/party', (request, response, next) => {
     });
 });
 
-const db = new loki(__dirname + '/db.dat', {autosave: true, autoload: true});
+const db = new loki(__dirname + '/db.dat', { autosave: true, autoload: true });
 let guests = db.getCollection('guests');
 if (!guests) {
-  guests = db.addCollection('guests');
+    guests = db.addCollection('guests');
 }
 
-app.get('/guests',(request, response, next)=>{
-    /*for(let i=0;i<guests.count();i++){
+const adminFilter = basic({ users: { admin: 'P@ssw0rd!' } });
 
-    }*/
+app.get('/guests', adminFilter, function (request, response, next) {
+
     response.send(guests.find());
 });
 
-app.post('/register', function(request,response){
-    if(request.body.firstName==false || request.body.lastName==false){
+app.post('/register', function (request, response) {
+    if (request.body.firstName == false || request.body.lastName == false) {
         response.status(BAD_REQUEST).send("Falsche Informationen wurden übergeben!");
-    }else{
-        if(guests.count()>10){
+    } else {
+        if (guests.count() > 10) {
             response.status(UNAUTHORIZED).send("Die maximale Anzahl an Besuchern ist bereits erreicht!");
-        }else{
-            let guest= {
+        } else {
+            let guest = {
                 firstName: request.body.firstName,
                 lastName: request.body.lastName
             }
-            let inserted=false;
-            inserted=guests.insert(guest);
-            if(inserted){
+            let inserted = false;
+            inserted = guests.insert(guest);
+            if (inserted) {
                 response.status(CREATED).send("Erfolgreich hinzugefügt!");
-            }else{
+            } else {
                 response.send("Etwas ist schief gelaufen!");
             }
         }
     }
 });
-app.listen(port, () => console.log('API is listening on '+port));
+app.listen(port, () => console.log('API is listening on ' + port));
 
