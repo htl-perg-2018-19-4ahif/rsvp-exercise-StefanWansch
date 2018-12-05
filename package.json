@@ -1,5 +1,5 @@
 {
-  "name": "9020-birthday-party",
+  "name": "rsvp",
   "version": "1.0.0",
   "description": "Sample for mobile computing course at HTL Perg",
   "main": "app.ts",
@@ -9,6 +9,7 @@
   "author": "Rainer Stropek",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^10.12.10",
     "express": "^4.16.4",
     "express-basic-auth": "^1.1.6",
     "http-status-codes": "^1.3.0",
@@ -20,5 +21,13 @@
     "@types/lokijs": "^1.5.2",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htl-perg-2018-19-4ahif/rsvp-exercise-StefanWansch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/htl-perg-2018-19-4ahif/rsvp-exercise-StefanWansch/issues"
+  },
+  "homepage": "https://github.com/htl-perg-2018-19-4ahif/rsvp-exercise-StefanWansch#readme"
 }
